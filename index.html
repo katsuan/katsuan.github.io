@@ -367,11 +367,6 @@
         <a class="bkmlt" href="javascript:(function(){try{var d=JSON.parse(document.body.innerText);var pre=document.createElement('pre');pre.style.cssText='white-space:pre-wrap;word-break:break-word;font-family:monospace;font-size:13px;padding:1rem;';pre.textContent=JSON.stringify(d,null,2);document.body.innerHTML='';document.body.appendChild(pre);}catch(e){alert('JSONとして解析できませんでした');}})();">JSON Pretty</a>
       </div>
       <div class="bookmarklet-card">
-        <h3>GitHub PRのFiles changedへ</h3>
-        <p>開いているGitHubのPRページから、差分一覧(Files changed)に直接ジャンプします。</p>
-        <a class="bkmlt" href="javascript:(function(){var m=location.href.match(/^(https:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/\d+)(\/.*)?$/);if(m){location.href=m[1]+'/files';}else{alert('GitHubのPRページで実行してください');}})();">PR Files</a>
-      </div>
-      <div class="bookmarklet-card">
         <h3>URL末尾のIDをコピー</h3>
         <p>LIFF ID・チャンネルIDなど、コンソール画面のURL末尾に出ているIDをコピーします。</p>
         <a class="bkmlt" href="javascript:(function(){var parts=location.pathname.split('/').filter(Boolean);var id=parts[parts.length-1]||'';navigator.clipboard.writeText(id).then(function(){alert('コピーしました: '+id);},function(){prompt('コピーしてください:',id);});})();">Copy Last ID</a>
