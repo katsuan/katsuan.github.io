@@ -1,3 +1,23 @@
+  const themeToggle = document.getElementById('theme-toggle');
+  function syncThemeIcon() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    themeToggle.textContent = isLight ? '☀️' : '🌙';
+  }
+  if (themeToggle) {
+    syncThemeIcon();
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+      syncThemeIcon();
+    });
+  }
+
   const filters = document.getElementById('filters');
   const cards = document.querySelectorAll('#grid .card');
   const tagLabels = { liff: 'LIFF', gas: 'GAS', game: 'ゲーム', tool: 'ツール' };

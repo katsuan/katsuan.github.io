@@ -6,6 +6,14 @@
     --accent: #5b8cff;
     --border: #2a2e37;
   }
+  :root[data-theme="light"] {
+    --bg: #f6f8fa;
+    --card: #ffffff;
+    --text: #1f2328;
+    --muted: #57606a;
+    --accent: #3b6fe0;
+    --border: #d0d7de;
+  }
   * { box-sizing: border-box; }
   body {
     margin: 0;
@@ -13,6 +21,23 @@
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
+  }
+  #theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 100;
+  }
+  #theme-toggle:hover {
+    border-color: var(--accent);
   }
   header {
     padding: 4rem 1.5rem 2rem;
