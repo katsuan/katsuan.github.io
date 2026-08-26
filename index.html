@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
+<title>katsuan Portfolio</title>
+<meta name="description" content="katsuanの制作物ポートフォリオ。LINE LIFF・Google Apps Script・Javaでの開発実績とツールをまとめています。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="katsuan Portfolio">
+<meta property="og:description" content="LINE LIFF・Google Apps Script・Javaでの開発実績とツールをまとめたポートフォリオ。">
+<meta property="og:url" content="https://katsuan.github.io/">
+<meta property="og:image" content="https://katsuan.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="katsuan Portfolio">
+<meta name="twitter:description" content="LINE LIFF・Google Apps Script・Javaでの開発実績とツールをまとめたポートフォリオ。">
+<meta name="twitter:image" content="https://katsuan.github.io/assets/og-image.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -41,6 +51,32 @@
 
 <main>
   <section>
+    <h2>経歴</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="period">2023年〜</div>
+        <h3>Pythonでの受託Web開発</h3>
+        <p>物流DXシステムやAIナレーション作成システムなど、クライアント向けWebシステムをPythonで開発。</p>
+      </div>
+      <div class="timeline-item">
+        <div class="period">2023年〜</div>
+        <h3>Google Apps Scriptでの自動化・個人開発</h3>
+        <p>業務自動化ツールやLINE連携Botなど、GASを使った個人開発を継続的に実施。</p>
+      </div>
+      <div class="timeline-item">
+        <div class="period">2026年〜</div>
+        <h3>LINE LIFFでの個人開発を本格化</h3>
+        <p>LIFF SDKを使ったアプリを多数公開。GitHub Pages + GAS構成での個人開発が中心に。</p>
+      </div>
+      <div class="timeline-item">
+        <div class="period">現在</div>
+        <h3>Javaでの開発を中心に</h3>
+        <p>現職ではJavaでの開発に従事。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h2>作品</h2>
     <div class="filters" id="filters">
       <button class="pill active" data-tag="all">すべて</button>
@@ -50,67 +86,67 @@
       <button class="pill" data-tag="tool">ツール</button>
     </div>
     <div class="grid" id="grid">
-      <div class="card" data-tags="liff" data-tech="HTML / CSS / JS, LIFF SDK">
+      <div class="card" data-tags="liff" data-tech="HTML / CSS / JS, LIFF SDK" data-repo="line-calendar-share">
         <h3>LIFF Calendar Share</h3>
         <p>Googleカレンダー登録用URLを生成し、LINEへFlex Messageで共有するLIFFアプリ。</p>
         <a href="https://katsuan.github.io/line-calendar-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff" data-tech="LIFF SDK, Canvas API">
+      <div class="card" data-tags="liff" data-tech="LIFF SDK, Canvas API" data-repo="line-draw-share">
         <h3>LIFF Draw Send</h3>
         <p>LINE LIFF上で手書きしたcanvas画像をPNG化し、LINEで画像共有するアプリ。</p>
         <a href="https://katsuan.github.io/line-draw-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff" data-tech="HTML / CSS / JS, LIFF SDK">
+      <div class="card" data-tags="liff" data-tech="HTML / CSS / JS, LIFF SDK" data-repo="line-flex-builder">
         <h3>Flexメッセージ作成ツール</h3>
         <p>GitHub Pagesだけで動くLIFF Flex Message Builder。</p>
         <a href="https://katsuan.github.io/line-flex-builder/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff" data-tech="HTML / CSS / JS, LIFF SDK">
+      <div class="card" data-tags="liff" data-tech="HTML / CSS / JS, LIFF SDK" data-repo="line-flex-share">
         <h3>FlexShare</h3>
         <p>GitHub Pagesだけで動くLINE Flex Message共有ページ。</p>
         <a href="https://katsuan.github.io/line-flex-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff" data-tech="LIFF SDK, LINE Messaging API">
+      <div class="card" data-tags="liff" data-tech="LIFF SDK, LINE Messaging API" data-repo="line-googlemap">
         <h3>LIFF-GoogleMap</h3>
         <p>Googleマップ関連投稿に対して、LINEのPostアクションを発動させるアプリ。</p>
         <a href="https://katsuan.github.io/line-googlemap/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff gas" data-tech="LIFF SDK, GAS, Spreadsheet">
+      <div class="card" data-tags="liff gas" data-tech="LIFF SDK, GAS, Spreadsheet" data-repo="line-learning-platform">
         <h3>LearningPlatform</h3>
         <p>LINEを入口にした、LIFF内で完結するマルチテナント型学習プラットフォーム(MVP)。</p>
         <a href="https://katsuan.github.io/line-learning-platform/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff gas" data-tech="LIFF SDK, GAS Webhook">
+      <div class="card" data-tags="liff gas" data-tech="LIFF SDK, GAS Webhook" data-repo="line-meal-project">
         <h3>Meal Project</h3>
         <p>LINEで食事名を送ると記録され、未登録の食事はLIFFで補完入力できる食事記録アプリ。</p>
         <a href="https://katsuan.github.io/line-meal-project/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff game" data-tech="LIFF SDK, Firebase Firestore, PeerJS">
+      <div class="card" data-tags="liff game" data-tech="LIFF SDK, Firebase Firestore, PeerJS" data-repo="line-p2p-othello">
         <h3>LIFF P2Pオセロ</h3>
         <p>LIFF・Firebase Firestore・PeerJSを使った2人対戦オセロ。</p>
         <a href="https://katsuan.github.io/line-p2p-othello/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff gas" data-tech="LIFF SDK, GAS, Spreadsheet">
+      <div class="card" data-tags="liff gas" data-tech="LIFF SDK, GAS, Spreadsheet" data-repo="line-schedule-coordinator">
         <h3>line-schedule-coordinator</h3>
         <p>Botなしで動く日程調整MVP。LIFF + GAS + Spreadsheetで幹事の日程調整を支援。</p>
         <a href="https://katsuan.github.io/line-schedule-coordinator/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff" data-tech="LIFF SDK, shareTargetPicker">
+      <div class="card" data-tags="liff" data-tech="LIFF SDK, shareTargetPicker" data-repo="line-workout-share">
         <h3>Workout Share</h3>
         <p>トレーニング内容をLIFF上でまとめ、LINEのshareTargetPickerで共有するアプリ。</p>
         <a href="https://katsuan.github.io/line-workout-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="liff" data-tech="LIFF SDK, GAS">
+      <div class="card" data-tags="liff" data-tech="LIFF SDK, GAS" data-repo="line-investment">
         <h3>Investment</h3>
         <p>LINE連携の株価ウォッチリスト・投資情報LIFFアプリ。</p>
         <a href="https://katsuan.github.io/line-investment/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="tool" data-tech="HTML / CSS / JS">
+      <div class="card" data-tags="tool" data-tech="HTML / CSS / JS" data-repo="keyword-highlighter-site">
         <h3>Keyword Highlighter</h3>
         <p>指定したキーワードをハイライト表示するWebツール。</p>
         <a href="https://katsuan.github.io/keyword-highlighter-site/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card" data-tags="tool" data-tech="HTML / CSS / JS, PWA (Service Worker)">
+      <div class="card" data-tags="tool" data-tech="HTML / CSS / JS, PWA (Service Worker)" data-repo="pomodoro">
         <h3>Pomodoro Timer</h3>
         <p>シンプルなポモドーロタイマー。</p>
         <a href="https://katsuan.github.io/pomodoro/" target="_blank" rel="noopener">サイトを見る →</a>

@@ -64,3 +64,27 @@
         qiitaList.innerHTML = '<li class="empty">記事を取得できませんでした。<a href="https://qiita.com/katsuan" target="_blank" rel="noopener">Qiitaで見る →</a></li>';
       });
   }
+
+  const repoCards = document.querySelectorAll('#grid .card[data-repo]');
+  if (repoCards.length) {
+    fetch('https://api.github.com/users/katsuan/repos?per_page=100')
+      .then(res => {
+        if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+        return res.json();
+      })
+      .then(repos => {
+        const pushedMap = {};
+        repos.forEach(r => { pushedMap[r.name] = r.pushed_at; });
+        repoCards.forEach(card => {
+          const pushedAt = pushedMap[card.dataset.repo];
+          if (!pushedAt) return;
+          const date = new Date(pushedAt).toLocaleDateString('ja-JP');
+          const updated = document.createElement('p');
+          updated.className = 'tech';
+          updated.textContent = '最終更新: ' + date;
+          const anchor = card.querySelector('a');
+          card.insertBefore(updated, anchor);
+        });
+      })
+      .catch(() => {});
+  }

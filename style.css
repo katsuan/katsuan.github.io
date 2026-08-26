@@ -131,6 +131,44 @@
     color: var(--muted);
     font-size: 0.85rem;
   }
+  .timeline {
+    position: relative;
+    margin: 0;
+    padding-left: 1.6rem;
+    border-left: 2px solid var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 1.6rem;
+  }
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.95rem;
+    top: 0.3rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .timeline-item .period {
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-item h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1rem;
+  }
+  .timeline-item p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.9rem;
+  }
   main {
     max-width: 960px;
     margin: 0 auto;
