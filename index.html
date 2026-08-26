@@ -47,6 +47,31 @@
     padding-left: 0.6rem;
     margin-bottom: 1rem;
   }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .pill {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .pill:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .pill.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -57,6 +82,9 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 1.2rem;
+  }
+  .card.hidden {
+    display: none;
   }
   .card h3 {
     margin: 0 0 0.4rem;
@@ -109,73 +137,80 @@
 <main>
   <section>
     <h2>作品</h2>
-    <div class="grid">
-      <div class="card">
+    <div class="filters" id="filters">
+      <button class="pill active" data-tag="all">すべて</button>
+      <button class="pill" data-tag="liff">LIFF</button>
+      <button class="pill" data-tag="gas">GAS</button>
+      <button class="pill" data-tag="game">ゲーム</button>
+      <button class="pill" data-tag="tool">ツール</button>
+    </div>
+    <div class="grid" id="grid">
+      <div class="card" data-tags="liff">
         <h3>LIFF Calendar Share</h3>
         <p>Googleカレンダー登録用URLを生成し、LINEへFlex Messageで共有するLIFFアプリ。</p>
         <a href="https://katsuan.github.io/line-calendar-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff">
         <h3>LIFF Draw Send</h3>
         <p>LINE LIFF上で手書きしたcanvas画像をPNG化し、LINEで画像共有するアプリ。</p>
         <a href="https://katsuan.github.io/line-draw-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff">
         <h3>Flexメッセージ作成ツール</h3>
         <p>GitHub Pagesだけで動くLIFF Flex Message Builder。</p>
         <a href="https://katsuan.github.io/line-flex-builder/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff">
         <h3>FlexShare</h3>
         <p>GitHub Pagesだけで動くLINE Flex Message共有ページ。</p>
         <a href="https://katsuan.github.io/line-flex-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff">
         <h3>LIFF-GoogleMap</h3>
         <p>Googleマップ関連投稿に対して、LINEのPostアクションを発動させるアプリ。</p>
         <a href="https://katsuan.github.io/line-googlemap/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff gas">
         <h3>LearningPlatform</h3>
         <p>LINEを入口にした、LIFF内で完結するマルチテナント型学習プラットフォーム(MVP)。</p>
         <a href="https://katsuan.github.io/line-learning-platform/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff gas">
         <h3>Meal Project</h3>
         <p>LINEで食事名を送ると記録され、未登録の食事はLIFFで補完入力できる食事記録アプリ。</p>
         <a href="https://katsuan.github.io/line-meal-project/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff game">
         <h3>LIFF P2Pオセロ</h3>
         <p>LIFF・Firebase Firestore・PeerJSを使った2人対戦オセロ。</p>
         <a href="https://katsuan.github.io/line-p2p-othello/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff gas">
         <h3>line-schedule-coordinator</h3>
         <p>Botなしで動く日程調整MVP。LIFF + GAS + Spreadsheetで幹事の日程調整を支援。</p>
         <a href="https://katsuan.github.io/line-schedule-coordinator/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="gas">
         <h3>T-FONTE_reminder</h3>
         <p>Google Apps Scriptで動く予定リマインド配信。SpreadsheetからLINEテキスト/Flex Messageを生成。</p>
         <a href="https://katsuan.github.io/line-t-fonte-schedule/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff">
         <h3>Workout Share</h3>
         <p>トレーニング内容をLIFF上でまとめ、LINEのshareTargetPickerで共有するアプリ。</p>
         <a href="https://katsuan.github.io/line-workout-share/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="liff">
         <h3>Investment</h3>
         <p>LINE連携の株価ウォッチリスト・投資情報LIFFアプリ。</p>
         <a href="https://katsuan.github.io/line-investment/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="tool">
         <h3>Keyword Highlighter</h3>
         <p>指定したキーワードをハイライト表示するWebツール。</p>
         <a href="https://katsuan.github.io/keyword-highlighter-site/" target="_blank" rel="noopener">サイトを見る →</a>
       </div>
-      <div class="card">
+      <div class="card" data-tags="tool">
         <h3>Pomodoro Timer</h3>
         <p>シンプルなポモドーロタイマー。</p>
         <a href="https://katsuan.github.io/pomodoro/" target="_blank" rel="noopener">サイトを見る →</a>
@@ -200,6 +235,26 @@
 <footer>
   &copy; 2026
 </footer>
+
+<script>
+  const filters = document.getElementById('filters');
+  const cards = document.querySelectorAll('#grid .card');
+
+  filters.addEventListener('click', (e) => {
+    const btn = e.target.closest('.pill');
+    if (!btn) return;
+
+    filters.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+
+    const tag = btn.dataset.tag;
+    cards.forEach(card => {
+      const tags = card.dataset.tags.split(' ');
+      const show = tag === 'all' || tags.includes(tag);
+      card.classList.toggle('hidden', !show);
+    });
+  });
+</script>
 
 </body>
 </html>
