@@ -189,6 +189,45 @@
     text-decoration: none;
     font-size: 0.9rem;
   }
+  .bookmarklet-hint {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 1.6rem 0 1rem;
+  }
+  .bookmarklet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .bookmarklet-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+  .bookmarklet-card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.02rem;
+  }
+  .bookmarklet-card p {
+    color: var(--muted);
+    margin: 0 0 0.9rem;
+    font-size: 0.88rem;
+  }
+  .bookmarklet-card a.bkmlt {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px dashed var(--accent);
+    color: var(--accent);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    cursor: grab;
+  }
+  .bookmarklet-card a.bkmlt:hover {
+    background: rgba(91, 140, 255, 0.1);
+  }
   footer {
     text-align: center;
     color: var(--muted);
@@ -311,6 +350,32 @@
         <code>backup</code> フォルダにコピーしてから元のファイル/フォルダを削除します。
       </p>
       <a class="btn" href="tools/backup_and_delete.bat" download>ダウンロード</a>
+    </div>
+
+    <p class="bookmarklet-hint">
+      ブックマークレット: 下のボタンをブックマークバーにドラッグ&amp;ドロップして登録してください(クリックはこのページ上では動作しません)。
+    </p>
+    <div class="bookmarklet-grid">
+      <div class="bookmarklet-card">
+        <h3>Markdownリンクをコピー</h3>
+        <p>今開いているページのタイトルとURLを <code>[タイトル](URL)</code> 形式でコピーします。</p>
+        <a class="bkmlt" href="javascript:(function(){var t=document.title,u=location.href,s='['+t+']('+u+')';navigator.clipboard.writeText(s).then(function(){alert('コピーしました:\n'+s);},function(){prompt('コピーしてください:',s);});})();">MD Link Copy</a>
+      </div>
+      <div class="bookmarklet-card">
+        <h3>JSONを整形表示</h3>
+        <p>APIレスポンスなど、プレーンなJSONだけが表示されているページを見やすく整形します。</p>
+        <a class="bkmlt" href="javascript:(function(){try{var d=JSON.parse(document.body.innerText);var pre=document.createElement('pre');pre.style.cssText='white-space:pre-wrap;word-break:break-word;font-family:monospace;font-size:13px;padding:1rem;';pre.textContent=JSON.stringify(d,null,2);document.body.innerHTML='';document.body.appendChild(pre);}catch(e){alert('JSONとして解析できませんでした');}})();">JSON Pretty</a>
+      </div>
+      <div class="bookmarklet-card">
+        <h3>GitHub PRのFiles changedへ</h3>
+        <p>開いているGitHubのPRページから、差分一覧(Files changed)に直接ジャンプします。</p>
+        <a class="bkmlt" href="javascript:(function(){var m=location.href.match(/^(https:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/\d+)(\/.*)?$/);if(m){location.href=m[1]+'/files';}else{alert('GitHubのPRページで実行してください');}})();">PR Files</a>
+      </div>
+      <div class="bookmarklet-card">
+        <h3>URL末尾のIDをコピー</h3>
+        <p>LIFF ID・チャンネルIDなど、コンソール画面のURL末尾に出ているIDをコピーします。</p>
+        <a class="bkmlt" href="javascript:(function(){var parts=location.pathname.split('/').filter(Boolean);var id=parts[parts.length-1]||'';navigator.clipboard.writeText(id).then(function(){alert('コピーしました: '+id);},function(){prompt('コピーしてください:',id);});})();">Copy Last ID</a>
+      </div>
     </div>
   </section>
 </main>
