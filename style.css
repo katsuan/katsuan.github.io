@@ -71,6 +71,66 @@
     flex-shrink: 0;
     object-fit: cover;
   }
+  .profile .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+  .profile .skills img {
+    height: 20px;
+  }
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .activity-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+  .activity-card h3 {
+    margin: 0 0 0.8rem;
+    font-size: 1rem;
+  }
+  .activity-card img.contrib-graph {
+    max-width: 100%;
+    display: block;
+  }
+  .qiita-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .qiita-list li {
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .qiita-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .qiita-list a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .qiita-list a:hover {
+    text-decoration: underline;
+  }
+  .qiita-list .meta {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 0.2rem;
+  }
+  .activity-card .empty {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
   main {
     max-width: 960px;
     margin: 0 auto;

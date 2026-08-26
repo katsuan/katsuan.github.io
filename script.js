@@ -39,3 +39,28 @@
     if (!btn) return;
     applyFilter(btn.dataset.tag);
   });
+
+  const qiitaList = document.getElementById('qiita-list');
+  if (qiitaList) {
+    fetch('https://qiita.com/api/v2/users/katsuan/items?page=1&per_page=5')
+      .then(res => {
+        if (!res.ok) throw new Error('Qiita API error: ' + res.status);
+        return res.json();
+      })
+      .then(items => {
+        if (!items.length) {
+          qiitaList.innerHTML = '<li class="empty">記事がありません。</li>';
+          return;
+        }
+        qiitaList.innerHTML = items.map(item => {
+          const date = new Date(item.created_at).toLocaleDateString('ja-JP');
+          return '<li>'
+            + '<a href="' + item.url + '" target="_blank" rel="noopener">' + item.title + '</a>'
+            + '<div class="meta">' + date + ' ・ ❤ ' + item.likes_count + '</div>'
+            + '</li>';
+        }).join('');
+      })
+      .catch(() => {
+        qiitaList.innerHTML = '<li class="empty">記事を取得できませんでした。<a href="https://qiita.com/katsuan" target="_blank" rel="noopener">Qiitaで見る →</a></li>';
+      });
+  }
