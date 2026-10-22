@@ -108,3 +108,38 @@
       })
       .catch(() => {});
   }
+
+// ---- コネクト 〜ConneQt〜：おくるんの一覧（hub-links.json）から、Qツールを並べる ----
+(function () {
+  const grid = document.getElementById('q-grid');
+  if (!grid) return;
+  // 使っている技術（一覧データにはないので、ここで足す）
+  const tech = {
+    kiloq: 'LIFF SDK, shareTargetPicker',
+    saqsen: 'Canvas, ドラッグ操作, ろくがとチーム情報を共有',
+    roqga: 'Canvas, MediaRecorder, Web Audio',
+    pomoq: 'PWA (Service Worker)',
+    hiqri: 'LIFF SDK, PeerJS (WebRTC), Firebase'
+  };
+  const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  fetch('https://katsuan.github.io/line-share/data/hub-links.json')
+    .then((res) => {
+      if (!res.ok) throw new Error('hub-links: ' + res.status);
+      return res.json();
+    })
+    .then((data) => {
+      grid.innerHTML = (data.items || []).map((it) =>
+        '<a class="q-card" href="' + esc(it.url) + '" target="_blank" rel="noopener" style="--q: ' + esc(it.color) + '">'
+        + '<img src="' + esc(it.appIcon) + '" alt="" loading="lazy">'
+        + '<span class="q-body">'
+        + '<span class="q-name">' + esc(it.name) + ' <small>' + esc(it.en) + '</small></span>'
+        + '<span class="q-copy">' + esc(it.copy) + '</span>'
+        + '<span class="q-lead">' + esc(it.lead || it.desc) + '</span>'
+        + (tech[it.key] ? '<span class="q-tech">' + esc(tech[it.key]) + '</span>' : '')
+        + '</span></a>'
+      ).join('');
+    })
+    .catch(() => {
+      grid.innerHTML = '<p class="q-empty">一覧を読みこめませんでした。<a href="https://katsuan.github.io/line-share/" target="_blank" rel="noopener">おくるん</a>から開けます。</p>';
+    });
+})();
