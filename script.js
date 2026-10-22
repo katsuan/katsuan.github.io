@@ -110,27 +110,45 @@
   }
 
 // ---- コネクト 〜ConneQt〜：おくるんの一覧（hub-links.json）から、Qツールを並べる ----
+// ページには tools/build_conneqt.py で書いた控えのカードがある。ここでは最新の一覧を読みにいき、読めたときだけ差しかえる。
+// 読めない・遅い（5秒）・中身がおかしいときは、控えのまま（何も消さない）
 (function () {
   const grid = document.getElementById('q-grid');
   if (!grid) return;
-  // 使っている技術（一覧データにはないので、ここで足す）
-  const tech = {
-    kiloq: 'LIFF SDK, shareTargetPicker',
-    saqsen: 'Canvas, ドラッグ操作, ろくがとチーム情報を共有',
-    roqga: 'Canvas, MediaRecorder, Web Audio',
-    pomoq: 'PWA (Service Worker)',
-    hiqri: 'LIFF SDK, PeerJS (WebRTC), Firebase'
+
+  // アイコン画像が読めなかったら、絵文字のアイコンに
+  const fallbackIcon = (img) => {
+    img.addEventListener('error', () => {
+      const span = document.createElement('span');
+      span.className = 'q-emoji';
+      span.textContent = img.dataset.emoji || '🔗';
+      img.replaceWith(span);
+    }, { once: true });
   };
+  grid.querySelectorAll('img').forEach(fallbackIcon);
+
   const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  fetch('https://katsuan.github.io/line-share/data/hub-links.json')
-    .then((res) => {
-      if (!res.ok) throw new Error('hub-links: ' + res.status);
-      return res.json();
-    })
-    .then((data) => {
-      grid.innerHTML = (data.items || []).map((it) =>
+  const getJSON = (url, ms) => {
+    const ctrl = 'AbortController' in window ? new AbortController() : null;
+    const timer = ctrl && setTimeout(() => ctrl.abort(), ms);
+    return fetch(url, ctrl ? { signal: ctrl.signal } : {})
+      .then((res) => {
+        if (!res.ok) throw new Error(url + ': ' + res.status);
+        return res.json();
+      })
+      .finally(() => clearTimeout(timer));
+  };
+
+  Promise.all([
+    getJSON('https://katsuan.github.io/line-share/data/hub-links.json', 5000),
+    getJSON('conneqt-tech.json', 5000).catch(() => ({}))
+  ])
+    .then(([data, tech]) => {
+      const items = (data && data.items || []).filter((it) => it && it.url && it.name);
+      if (!items.length) return; // 中身がなければ控えのまま
+      grid.innerHTML = items.map((it) =>
         '<a class="q-card" href="' + esc(it.url) + '" target="_blank" rel="noopener" style="--q: ' + esc(it.color) + '">'
-        + '<img src="' + esc(it.appIcon) + '" alt="" loading="lazy">'
+        + '<img src="' + esc(it.appIcon) + '" alt="" loading="lazy" data-emoji="' + esc(it.icon) + '">'
         + '<span class="q-body">'
         + '<span class="q-name">' + esc(it.name) + ' <small>' + esc(it.en) + '</small></span>'
         + '<span class="q-copy">' + esc(it.copy) + '</span>'
@@ -138,8 +156,9 @@
         + (tech[it.key] ? '<span class="q-tech">' + esc(tech[it.key]) + '</span>' : '')
         + '</span></a>'
       ).join('');
+      grid.querySelectorAll('img').forEach(fallbackIcon);
     })
     .catch(() => {
-      grid.innerHTML = '<p class="q-empty">一覧を読みこめませんでした。<a href="https://katsuan.github.io/line-share/" target="_blank" rel="noopener">おくるん</a>から開けます。</p>';
+      // 読めなくても、控えのカードが出ているので何もしない
     });
 })();

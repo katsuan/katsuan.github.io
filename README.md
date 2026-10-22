@@ -5,7 +5,9 @@
 ## 構成
 
 - `index.html` — サイト本体（経歴・コネクト 〜ConneQt〜・そのほかの作品・非公開の実績・活動・ツール）
-- ConneQt の一覧は、おくるん（line-share）の `data/hub-links.json` を読んで出す（Qツールを足すと、ここにも出る）。使っている技術は `script.js` の `tech` に足す
+- ConneQt の一覧は、おくるん（line-share）の `data/hub-links.json` から作る。使っている技術は `conneqt-tech.json` に足す
+  - `python3 tools/build_conneqt.py` で、カードを `index.html` に書きこむ（読みこみに失敗しても・JS がなくても・検索エンジンにも見える控え）。Qツールを足したら、これを動かして push
+  - ページを開いたときは `script.js` が最新の一覧を読みにいき、読めたら差しかえる（5秒で読めない・中身がおかしいときは控えのまま）。アイコン画像が読めないときは絵文字に
 - `tools/backup_and_delete.bat` — Windows用ツール。ドラッグ&ドロップしたファイル/フォルダを
   同じ階層の `backup/` にコピーしてから元を削除する。
 
