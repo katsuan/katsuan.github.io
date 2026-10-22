@@ -1,41 +1,46 @@
-  const themeToggle = document.getElementById('theme-toggle');
-  function syncThemeIcon() {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    themeToggle.textContent = isLight ? '☀️' : '🌙';
-  }
-  if (themeToggle) {
-    syncThemeIcon();
-    themeToggle.addEventListener('click', () => {
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-      if (isLight) {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-      }
-      syncThemeIcon();
-    });
-  }
+// HTML に入れる文字を安全にする
+const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+// ---- ライト / ダーク切り替え（保存した設定は index.html の先頭で先に当てている） ----
+(function () {
+  const themeToggle = document.getElementById('theme-toggle');
+  if (!themeToggle) return;
+
+  const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
+  const syncThemeIcon = () => { themeToggle.textContent = isLight() ? '☀️' : '🌙'; };
+
+  syncThemeIcon();
+  themeToggle.addEventListener('click', () => {
+    if (isLight()) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+    syncThemeIcon();
+  });
+})();
+
+// ---- そのほかの作品：タグのバッジと絞りこみ ----
+(function () {
   const filters = document.getElementById('filters');
   const cards = document.querySelectorAll('#grid .card');
   const tagLabels = { liff: 'LIFF', gas: 'GAS', game: 'ゲーム', tool: 'ツール' };
+  const cardTags = (card) => card.dataset.tags.split(' ');
 
   function applyFilter(tag) {
     filters.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p.dataset.tag === tag));
     cards.forEach(card => {
-      const tags = card.dataset.tags.split(' ');
-      const show = tag === 'all' || tags.includes(tag);
+      const show = tag === 'all' || cardTags(card).includes(tag);
       card.classList.toggle('hidden', !show);
     });
   }
 
   cards.forEach(card => {
-    const tags = card.dataset.tags.split(' ');
     const tagBox = document.createElement('div');
     tagBox.className = 'card-tags';
-    tags.forEach(tag => {
+    cardTags(card).forEach(tag => {
       const badge = document.createElement('button');
       badge.className = 'tag-badge';
       badge.type = 'button';
@@ -59,55 +64,60 @@
     if (!btn) return;
     applyFilter(btn.dataset.tag);
   });
+})();
 
+// ---- 活動：Qiita の新しい記事5件 ----
+(function () {
   const qiitaList = document.getElementById('qiita-list');
-  if (qiitaList) {
-    fetch('https://qiita.com/api/v2/users/katsuan/items?page=1&per_page=5')
-      .then(res => {
-        if (!res.ok) throw new Error('Qiita API error: ' + res.status);
-        return res.json();
-      })
-      .then(items => {
-        if (!items.length) {
-          qiitaList.innerHTML = '<li class="empty">記事がありません。</li>';
-          return;
-        }
-        qiitaList.innerHTML = items.map(item => {
-          const date = new Date(item.created_at).toLocaleDateString('ja-JP');
-          return '<li>'
-            + '<a href="' + item.url + '" target="_blank" rel="noopener">' + item.title + '</a>'
-            + '<div class="meta">' + date + ' ・ ❤ ' + item.likes_count + '</div>'
-            + '</li>';
-        }).join('');
-      })
-      .catch(() => {
-        qiitaList.innerHTML = '<li class="empty">記事を取得できませんでした。<a href="https://qiita.com/katsuan" target="_blank" rel="noopener">Qiitaで見る →</a></li>';
-      });
-  }
+  if (!qiitaList) return;
 
+  fetch('https://qiita.com/api/v2/users/katsuan/items?page=1&per_page=5')
+    .then(res => {
+      if (!res.ok) throw new Error('Qiita API error: ' + res.status);
+      return res.json();
+    })
+    .then(items => {
+      if (!items.length) {
+        qiitaList.innerHTML = '<li class="empty">記事がありません。</li>';
+        return;
+      }
+      qiitaList.innerHTML = items.map(item => {
+        const date = new Date(item.created_at).toLocaleDateString('ja-JP');
+        return '<li>'
+          + '<a href="' + esc(item.url) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>'
+          + '<div class="meta">' + date + ' ・ ❤ ' + esc(item.likes_count) + '</div>'
+          + '</li>';
+      }).join('');
+    })
+    .catch(() => {
+      qiitaList.innerHTML = '<li class="empty">記事を取得できませんでした。<a href="https://qiita.com/katsuan" target="_blank" rel="noopener">Qiitaで見る →</a></li>';
+    });
+})();
+
+// ---- そのほかの作品：GitHub の最終更新日 ----
+(function () {
   const repoCards = document.querySelectorAll('#grid .card[data-repo]');
-  if (repoCards.length) {
-    fetch('https://api.github.com/users/katsuan/repos?per_page=100')
-      .then(res => {
-        if (!res.ok) throw new Error('GitHub API error: ' + res.status);
-        return res.json();
-      })
-      .then(repos => {
-        const pushedMap = {};
-        repos.forEach(r => { pushedMap[r.name] = r.pushed_at; });
-        repoCards.forEach(card => {
-          const pushedAt = pushedMap[card.dataset.repo];
-          if (!pushedAt) return;
-          const date = new Date(pushedAt).toLocaleDateString('ja-JP');
-          const updated = document.createElement('p');
-          updated.className = 'tech';
-          updated.textContent = '最終更新: ' + date;
-          const anchor = card.querySelector('a');
-          card.insertBefore(updated, anchor);
-        });
-      })
-      .catch(() => {});
-  }
+  if (!repoCards.length) return;
+
+  fetch('https://api.github.com/users/katsuan/repos?per_page=100')
+    .then(res => {
+      if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+      return res.json();
+    })
+    .then(repos => {
+      const pushedMap = {};
+      repos.forEach(r => { pushedMap[r.name] = r.pushed_at; });
+      repoCards.forEach(card => {
+        const pushedAt = pushedMap[card.dataset.repo];
+        if (!pushedAt) return;
+        const updated = document.createElement('p');
+        updated.className = 'tech';
+        updated.textContent = '最終更新: ' + new Date(pushedAt).toLocaleDateString('ja-JP');
+        card.insertBefore(updated, card.querySelector('a'));
+      });
+    })
+    .catch(() => {});
+})();
 
 // ---- コネクト 〜ConneQt〜：おくるんの一覧（hub-links.json）から、Qツールを並べる ----
 // ページには tools/build_conneqt.py で書いた控えのカードがある。ここでは最新の一覧を読みにいき、読めたときだけ差しかえる。
@@ -127,7 +137,6 @@
   };
   grid.querySelectorAll('img').forEach(fallbackIcon);
 
-  const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const getJSON = (url, ms) => {
     const ctrl = 'AbortController' in window ? new AbortController() : null;
     const timer = ctrl && setTimeout(() => ctrl.abort(), ms);
@@ -139,6 +148,17 @@
       .finally(() => clearTimeout(timer));
   };
 
+  // カードの形は tools/build_conneqt.py の card() と同じにする
+  const card = (it, tech) =>
+    '<a class="q-card" href="' + esc(it.url) + '" target="_blank" rel="noopener" style="--q: ' + esc(it.color) + '">'
+    + '<img src="' + esc(it.appIcon) + '" alt="" loading="lazy" data-emoji="' + esc(it.icon) + '">'
+    + '<span class="q-body">'
+    + '<span class="q-name">' + esc(it.name) + ' <small>' + esc(it.en) + '</small></span>'
+    + '<span class="q-copy">' + esc(it.copy) + '</span>'
+    + '<span class="q-lead">' + esc(it.lead || it.desc) + '</span>'
+    + (tech[it.key] ? '<span class="q-tech">' + esc(tech[it.key]) + '</span>' : '')
+    + '</span></a>';
+
   Promise.all([
     getJSON('https://katsuan.github.io/line-share/data/hub-links.json', 5000),
     getJSON('conneqt-tech.json', 5000).catch(() => ({}))
@@ -146,16 +166,7 @@
     .then(([data, tech]) => {
       const items = (data && data.items || []).filter((it) => it && it.url && it.name);
       if (!items.length) return; // 中身がなければ控えのまま
-      grid.innerHTML = items.map((it) =>
-        '<a class="q-card" href="' + esc(it.url) + '" target="_blank" rel="noopener" style="--q: ' + esc(it.color) + '">'
-        + '<img src="' + esc(it.appIcon) + '" alt="" loading="lazy" data-emoji="' + esc(it.icon) + '">'
-        + '<span class="q-body">'
-        + '<span class="q-name">' + esc(it.name) + ' <small>' + esc(it.en) + '</small></span>'
-        + '<span class="q-copy">' + esc(it.copy) + '</span>'
-        + '<span class="q-lead">' + esc(it.lead || it.desc) + '</span>'
-        + (tech[it.key] ? '<span class="q-tech">' + esc(tech[it.key]) + '</span>' : '')
-        + '</span></a>'
-      ).join('');
+      grid.innerHTML = items.map((it) => card(it, tech)).join('');
       grid.querySelectorAll('img').forEach(fallbackIcon);
     })
     .catch(() => {
