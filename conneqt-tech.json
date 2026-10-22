@@ -3,5 +3,6 @@
   "saqsen": "Canvas, ドラッグ操作, ろくがとチーム情報を共有",
   "roqga": "Canvas, MediaRecorder, Web Audio",
   "pomoq": "PWA (Service Worker)",
-  "hiqri": "LIFF SDK, PeerJS (WebRTC), Firebase"
+  "hiqri": "LIFF SDK, PeerJS (WebRTC), Firebase",
+  "shoquji": "localStorage, Web Share API（控えの書き出し）"
 }
