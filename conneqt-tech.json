@@ -4,5 +4,7 @@
   "roqga": "Canvas, MediaRecorder, Web Audio",
   "pomoq": "PWA (Service Worker)",
   "hiqri": "LIFF SDK, PeerJS (WebRTC), Firebase",
-  "suqsuq": "Canvas, MediaRecorder, getUserMedia, iCalendar (.ics)"
+  "suqsuq": "Canvas, MediaRecorder, getUserMedia, iCalendar (.ics)",
+  "tuzuq": "ほかの Q ツールの記録とつなぐ（localStorage）, PWA (Service Worker)",
+  "yuqsaki": "CompressionStream でしおりを URL に詰める, PWA (Service Worker)"
 }
