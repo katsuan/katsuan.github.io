@@ -7,5 +7,6 @@
   "suqsuq": "Canvas, MediaRecorder, getUserMedia, iCalendar (.ics)",
   "tuzuq": "ほかの Q ツールの記録とつなぐ（localStorage）, PWA (Service Worker)",
   "yuqsaki": "CompressionStream でしおりを URL に詰める, PWA (Service Worker)",
-  "shoquji": "localStorage, つづく・食事記録ボットとつなぐ, PWA (Service Worker)"
+  "shoquji": "localStorage, つづく・食事記録ボットとつなぐ, PWA (Service Worker)",
+  "soraqru": "Open-Meteo API, Geolocation API, PWA (Service Worker)"
 }
