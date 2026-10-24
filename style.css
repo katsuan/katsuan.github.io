@@ -203,6 +203,26 @@ section h2 {
   padding-left: 0.6rem;
   margin-bottom: 1rem;
 }
+/* くらぶ 〜Qlove〜 の見出し：ロゴ（おくるんの shared/qlove/logo.svg）と、横に小さく名前 */
+section h2.q-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-left: 0;
+  padding-left: 0;
+}
+section h2.q-title img {
+  height: 40px;
+  width: auto;
+}
+/* ふだん（暗い表示）は暗い地用のロゴ、明るい表示では白い地用のロゴ */
+section h2.q-title .q-logo-light { display: none; }
+:root[data-theme="light"] section h2.q-title .q-logo-light { display: block; }
+:root[data-theme="light"] section h2.q-title .q-logo-dark { display: none; }
+section h2.q-title span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
 .filters {
   display: flex;
   flex-wrap: wrap;
