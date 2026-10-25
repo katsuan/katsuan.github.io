@@ -203,7 +203,7 @@ section h2 {
   padding-left: 0.6rem;
   margin-bottom: 1rem;
 }
-/* くらぶ 〜Qlove〜 の見出し：ロゴ（おくるんの shared/qlove/logo.svg）と、横に小さく名前 */
+/* くらぶ 〜Qlove〜 の見出し：動くロゴ（おくるんの shared/qlove/qlove-anim.webp。動きを減らす設定では logo.svg）と、横に小さく名前 */
 section h2.q-title {
   display: flex;
   align-items: center;
