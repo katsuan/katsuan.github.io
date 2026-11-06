@@ -8,5 +8,6 @@
   "tuzuq": "ほかの Q ツールの記録とつなぐ（localStorage）, PWA (Service Worker)",
   "yuqsaki": "CompressionStream でしおりを URL に詰める, PWA (Service Worker)",
   "shoquji": "localStorage, つづく・食事記録ボットとつなぐ, PWA (Service Worker)",
-  "soraqru": "Open-Meteo API, Geolocation API, PWA (Service Worker)"
+  "soraqru": "Open-Meteo API, Geolocation API, PWA (Service Worker)",
+  "umiqru": "Open-Meteo Marine API, 気象庁の防災情報 JSON, 国土地理院の逆ジオコーダー, SVG のグラフ, PWA (Service Worker), Scriptable のウィジェット"
 }
