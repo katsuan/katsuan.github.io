@@ -160,7 +160,7 @@ const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
     + '</span></a>';
 
   Promise.all([
-    getJSON('https://katsuan.github.io/line-share/data/hub-links.json', 5000),
+    getJSON('https://katsuan.github.io/oqrn/data/hub-links.json', 5000),
     getJSON('conneqt-tech.json', 5000).catch(() => ({}))
   ])
     .then(([data, tech]) => {

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ConneQt の欄のカードを index.html に書きこむ（読みこみに失敗しても・JS がなくても・検索エンジンにも見えるように）。
 
-一覧は、おくるん（line-share）の data/hub-links.json。手元に ../q-oqrn があればそれを、なければ公開中のものを読む。
+一覧は、おくるん（oqrn）の data/hub-links.json。手元に ../q-oqrn があればそれを、なければ公開中のものを読む。
 ページを開いたときは script.js がもう一度読みにいき、読めたら新しい一覧に差しかえる（ここで書いたものは、そのときの控え）。
 
   python3 tools/build_conneqt.py
@@ -14,7 +14,7 @@ import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LOCAL = ROOT.parent / "q-oqrn" / "data" / "hub-links.json"
-URL = "https://katsuan.github.io/line-share/data/hub-links.json"
+URL = "https://katsuan.github.io/oqrn/data/hub-links.json"
 TECH = json.loads((ROOT / "conneqt-tech.json").read_text(encoding="utf-8"))
 
 
